@@ -12,16 +12,17 @@ const blockchain = (function(){
 		addBlock(hashBlock(data, timestamp, previousHash, index));
 	}
 
-	const hashBlock = (data, timestamp, prevHash, index, nonce = 0) => {
+	const hashBlock = (data, timestamp, prevHash, index, nonce = undefined) => {
 		let hash = '';
+		let originalNonce = '';
 
 		console.time("Block " + index);
 		while( !isHashValid(hash) ){
 			let input = `${data}${timestamp}${prevHash}${index}${nonce}`
 			hash = sha3(input)
-			nonce += 1
+			originalNonce = nonce;
+			nonce = Array(32+1).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, 32);
 		}
-		nonce--;
 		console.timeEnd("Block " + index);
 
 		return {
@@ -30,7 +31,7 @@ const blockchain = (function(){
 			timestamp,
 			prevHash,
 			index,
-			nonce
+			nonce: originalNonce
 		};
 	}
 
