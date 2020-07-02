@@ -23,7 +23,10 @@ Mining tasks are distributed using a websocket server by socket.io. The followin
 
 
 Server -> Clients:
+
 Name | Object
+
 MINING_ASSIGNMENT_NEW_BLOCK | { "block_data": <data>, "index": <index>, "timestamp": <timestamp> }
+
 MINING_ASSIGNMENT_DONE | { "index": <index> }
 
