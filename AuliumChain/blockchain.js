@@ -12,7 +12,7 @@ const blockchain = (function(){
 		addBlock(hashBlock(data, timestamp, previousHash, index));
 	}
 
-	const hashBlock = (data, timestamp, prevHash, index, nonce = undefined) => {
+	const hashBlock = (data, timestamp, prevHash, index, nonce = undefined, verifyOnly = false) => {
 		let hash = '';
 		let originalNonce = '';
 
@@ -22,6 +22,7 @@ const blockchain = (function(){
 			hash = sha3(input)
 			originalNonce = nonce;
 			nonce = Array(32+1).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, 32);
+			if(verifyOnly) break;
 		}
 		console.timeEnd("Block " + index);
 
@@ -41,7 +42,7 @@ const blockchain = (function(){
 
 	const getLastBlock = blocks => blocks.slice(-1)[0]
 
-	const isHashValid = hash => hash.startsWith('0000') // Difficulty
+	const isHashValid = hash => hash.startsWith('00000') // Difficulty
 
 	const addNewBlock = data => {
 		const index = blocks.length
@@ -98,7 +99,8 @@ const blockchain = (function(){
 		getAllBlocks,
 		addNewBlock,
 		importBlockchain,
-		verifyChainIntegrity
+		verifyChainIntegrity,
+		isHashValid
 	}
 })()
 
