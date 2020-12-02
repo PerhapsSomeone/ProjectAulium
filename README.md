@@ -1,6 +1,6 @@
 # Project Aulium
 
-Project Aulium is a social network based on a modified blockchain to ensure protection from censorship and manipulation. 
+Project Aulium is a blockchain implemented in JS with support for storing arbritrary JSON data. 
 All actions taken by users are trackable and can be verified to ensure they have not been tampered with.
 
 ## The currency
